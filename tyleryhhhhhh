@@ -51,7 +51,7 @@ end)
 -- =========================
 task.spawn(function()
     while true do
-        task.wait(0)
+        task.wait(1)
 
         local char = LocalPlayer.Character
         local hrp = char and char:FindFirstChild("HumanoidRootPart")
@@ -59,12 +59,17 @@ task.spawn(function()
             and workspace.BossRing:FindFirstChild("Boss") 
             and workspace.BossRing.Boss:FindFirstChild("UpperTorso")
 
-        if hrp and bossTorso then
-            hrp.CFrame = bossTorso.CFrame * CFrame.new(0, 0, -3)
+        if hrp and bossTorso and not hrp:FindFirstChild("BossWeld") then
+            hrp.CFrame = bossTorso.CFrame
+
+            local weld = Instance.new("WeldConstraint")
+            weld.Name = "BossWeld"
+            weld.Part0 = hrp
+            weld.Part1 = bossTorso
+            weld.Parent = hrp
         end
     end
 end)
-
 -- =========================
 -- Auto Rejoin System
 -- =========================
