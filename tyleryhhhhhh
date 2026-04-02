@@ -60,12 +60,14 @@ task.spawn(function()
             and workspace.BossRing.Boss:FindFirstChild("UpperTorso")
 
         if hrp and bossTorso then
-            local offset = Vector3.new(
-                math.random(-1,1),
-                0,
-                math.random(-1,1)
+            -- lock position slightly inside boss but offset for hits
+            local offset = CFrame.new(0, 0, -1)
+
+            -- face the boss while staying locked
+            hrp.CFrame = CFrame.new(
+                bossTorso.Position + offset.Position,
+                bossTorso.Position
             )
-            hrp.CFrame = bossTorso.CFrame + offset
         end
     end
 end)
