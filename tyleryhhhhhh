@@ -51,7 +51,7 @@ end)
 -- =========================
 task.spawn(function()
     while true do
-        task.wait(1)
+        task.wait(0)
 
         local char = LocalPlayer.Character
         local hrp = char and char:FindFirstChild("HumanoidRootPart")
@@ -59,14 +59,13 @@ task.spawn(function()
             and workspace.BossRing:FindFirstChild("Boss") 
             and workspace.BossRing.Boss:FindFirstChild("UpperTorso")
 
-        if hrp and bossTorso and not hrp:FindFirstChild("BossWeld") then
-            hrp.CFrame = bossTorso.CFrame
-
-            local weld = Instance.new("WeldConstraint")
-            weld.Name = "BossWeld"
-            weld.Part0 = hrp
-            weld.Part1 = bossTorso
-            weld.Parent = hrp
+        if hrp and bossTorso then
+            local offset = Vector3.new(
+                math.random(-1,1),
+                0,
+                math.random(-1,1)
+            )
+            hrp.CFrame = bossTorso.CFrame + offset
         end
     end
 end)
