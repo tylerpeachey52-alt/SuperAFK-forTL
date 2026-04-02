@@ -51,7 +51,7 @@ end)
 -- =========================
 task.spawn(function()
     while true do
-        task.wait(0.05)
+        task.wait(0)
 
         local char = LocalPlayer.Character
         local hrp = char and char:FindFirstChild("HumanoidRootPart")
